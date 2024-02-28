@@ -10,7 +10,7 @@
 // limitations under the License.
 import { test } from '@fixtures';
 
-//This test assumes that the eks/gke cluster is created and available
+//This test assumes that the everest is installed
 test.describe('Everest Cli uninstall', async () => {
    test.beforeEach(async ({ cli }) => {
      const clusteravailableOut = await cli.exec('kubectl get pods --namespace=everest-system');
