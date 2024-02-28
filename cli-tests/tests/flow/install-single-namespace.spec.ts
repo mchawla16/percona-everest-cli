@@ -67,3 +67,4 @@ test.describe('Everest CLI install', async () => {
 
     await verifyClusterResources();
   });
+});
