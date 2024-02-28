@@ -15,7 +15,7 @@ test.describe('Everest CLI install', async () => {
    test.beforeEach(async ({ cli }) => {
      const clusteravailableOut = await cli.exec('kubectl get nodes');
      await clusteravailableOut.assertSuccess();
-     console.log(clusteravailableOut.stdout);
+    // console.log(clusteravailableOut.stdout);
    });
 
   test('install all operators in a single namespace', async ({ page, cli, request }) => {
@@ -60,7 +60,7 @@ test.describe('Everest CLI install', async () => {
         'everest-operator operator has been installed',
       ]);
       console.log(out.stdout);
-      console.log(out.stderr);
+      //console.log(out.stderr);
     });
 
     await page.waitForTimeout(10_000);
