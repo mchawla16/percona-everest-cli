@@ -10,13 +10,13 @@
 // limitations under the License.
 import { test } from '@fixtures';
 
-// test.describe('Everest CLI install', async () => {
-//   test.beforeEach(async ({ cli }) => {
-  //   await cli.execute('docker-compose -f quickstart.yml up -d --force-recreate --renew-anon-volumes');
-//     await cli.execute('minikube delete');
-//     await cli.execute('minikube start');
-    // await cli.execute('minikube start --apiserver-name=host.docker.internal');
-//   });
+//This test assumes that the eks/gke cluster is created and available
+test.describe('Everest CLI install', async () => {
+   test.beforeEach(async ({ cli }) => {
+     const clusteravailableOut = await cli.exec('kubectl get nodes');
+     await clusteravailableOut.assertSuccess();
+     console.log(clusteravailableOut.stdout);
+   });
 
   test('install all operators in a single namespace', async ({ page, cli, request }) => {
     const verifyClusterResources = async () => {
@@ -59,6 +59,8 @@ import { test } from '@fixtures';
         'percona-xtradb-cluster-operator operator has been installed',
         'everest-operator operator has been installed',
       ]);
+      console.log(out.stdout);
+      console.log(out.stderr);
     });
 
     await page.waitForTimeout(10_000);
