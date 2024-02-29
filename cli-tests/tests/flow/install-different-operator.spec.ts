@@ -71,7 +71,7 @@ test.describe('Everest CLI install', async () => {
 
     await test.step('run everest install command', async () => {
       //Install the mysql operator in mysql namespace
-      let out = await cli.everestExecSkipWizard(
+      const out = await cli.everestExecSkipWizard(
         `install --operator.mongodb=false --operator.postgresql=false --operator.xtradb-cluster=true --namespaces=mysql`,
       );
 
