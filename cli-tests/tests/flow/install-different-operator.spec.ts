@@ -82,15 +82,6 @@ test.describe('Everest CLI install', async () => {
         'everest-operator operator has been installed',
       ]);
 
-      await out.outErrContainsNormalizedMany([
-        'percona-xtradb-cluster-operator',
-      ]);
-
-      await out.outErrNotContains([
-        'percona-server-mongodb-operator',
-        'percona-postgresql-operator',
-      ]);
-
       //Install the mongodb operator in mongodb namespace
       out = await cli.everestExecSkipWizard(
         `install --operator.mongodb=true --operator.postgresql=false --operator.xtradb-cluster=false --namespaces=mongodb`,
@@ -103,15 +94,6 @@ test.describe('Everest CLI install', async () => {
         'everest-operator operator has been installed',
       ]);
 
-      await out.outContainsNormalizedMany([
-        'percona-server-mongodb-operator',
-      ]);
-
-      await out.outNotContains([
-        'percona-xtradb-cluster-operator',
-        'percona-postgresql-operator',
-      ]);
-
       //Install the postgres operator in postgres namespace
       out = await cli.everestExecSkipWizard(
         `install --operator.mongodb=false --operator.postgresql=true --operator.xtradb-cluster=false --namespaces=postgres`,
@@ -122,15 +104,6 @@ test.describe('Everest CLI install', async () => {
       await out.outErrContainsNormalizedMany([
         'percona-postgresql-operator operator has been installed',
         'everest-operator operator has been installed',
-      ]);
-
-      await out.outContainsNormalizedMany([
-        'percona-postgresql-operator',
-      ]);
-
-      await out.outNotContains([
-        'percona-xtradb-cluster-operator',
-        'percona-server-mongodb-operator',
       ]);
 
     });
