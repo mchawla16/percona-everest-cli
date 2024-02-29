@@ -55,7 +55,7 @@ test.describe('Everest CLI install', async () => {
           'percona-postgresql-operator'
         ]);
 
-        const postgresOut = await cli.exec('kubectl get pods --namespace=mongodb');
+        const postgresOut = await cli.exec('kubectl get pods --namespace=postgres');
 
         await postgresOut.outContainsNormalizedMany([
           'percona-postgresql-operator'
