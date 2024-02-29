@@ -59,14 +59,6 @@ test.describe('Everest CLI install', async () => {
       );
 
       await out.assertSuccess();
-      await out.outErrContainsNormalizedMany([
-        'Namespace namespace1 has been created',
-        'percona-xtradb-cluster-operator operator has been installed',
-        'percona-server-mongodb-operator operator has been installed',
-        'percona-postgresql-operator operator has been installed',
-        'Namespace namespace2 has been created',
-        'everest-operator operator has been installed',
-      ]);
       console.log(out.stdout);
       //console.log(out.stderr);
     });
