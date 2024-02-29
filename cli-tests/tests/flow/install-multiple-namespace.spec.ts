@@ -18,7 +18,7 @@ test.describe('Everest CLI install', async () => {
     // console.log(clusteravailableOut.stdout);
    });
 
-  test('install all operators in a single namespace', async ({ page, cli, request }) => {
+  test('install all operators in multiple namespaces', async ({ page, cli, request }) => {
     const verifyClusterResources = async () => {
       await test.step('verify installed operators in k8s', async () => {
         const perconaEverestPodsOut = await cli.exec('kubectl get pods --namespace=everest-system');
@@ -34,31 +34,37 @@ test.describe('Everest CLI install', async () => {
           'vm-operator-vm-operator'
         ]);
 
-        const out = await cli.exec('kubectl get pods --namespace=namespace1');
+        const namespace1Out = await cli.exec('kubectl get pods --namespace=namespace1');
 
-        await out.outContainsNormalizedMany([
+        await namespace1Out.outContainsNormalizedMany([
           'percona-xtradb-cluster-operator',
           'percona-server-mongodb-operator',
           'percona-postgresql-operator',
         ]);
 
-//        await out.outNotContains([
-//          'percona-server-mongodb-operator',
-//          'percona-postgresql-operator',
-//        ]);
+        const namespace2Out = await cli.exec('kubectl get pods --namespace=namespace2');
+
+        await namespace2Out.outContainsNormalizedMany([
+          'percona-xtradb-cluster-operator',
+          'percona-server-mongodb-operator',
+          'percona-postgresql-operator',
+        ]);
+
       });
     };
 
     await test.step('run everest install command', async () => {
       const out = await cli.everestExecSkipWizard(
-        `install --operator.mongodb=true --operator.postgresql=true --operator.xtradb-cluster=true --namespaces=namespace1`,
+        `install --operator.mongodb=true --operator.postgresql=true --operator.xtradb-cluster=true --namespaces=namespace1,namespace2`,
       );
 
       await out.assertSuccess();
       await out.outErrContainsNormalizedMany([
+        'Namespace namespace1 has been created',
         'percona-xtradb-cluster-operator operator has been installed',
         'percona-server-mongodb-operator operator has been installed',
         'percona-postgresql-operator operator has been installed',
+        'Namespace namespace2 has been created',
         'everest-operator operator has been installed',
       ]);
       console.log(out.stdout);
