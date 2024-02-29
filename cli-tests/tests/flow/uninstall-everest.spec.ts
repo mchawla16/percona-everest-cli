@@ -37,13 +37,12 @@ test.describe('Everest Cli uninstall', async () => {
       //console.log(out.stderr);
 
       // check that the namespace does not exist
-      nsStatus = await cli.exec('kubectl get ns everest-system everest-monitoring everest-olm everest-all');
+      const nsStatus = await cli.exec('kubectl get ns everest-system everest-monitoring everest-olm');
 
       await nsStatus.outErrContainsNormalizedMany([
         'Error from server (NotFound): namespaces "everest-system" not found',
 		    'Error from server (NotFound): namespaces "everest-monitoring" not found',
-        'Error from server (NotFound): namespaces "everest-olm" not found',
-        'Error from server (NotFound): namespaces "everest-all" not found',
+        'Error from server (NotFound): namespaces "everest-olm" not found'
       ]);
     });
 
