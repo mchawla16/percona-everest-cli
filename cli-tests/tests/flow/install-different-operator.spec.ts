@@ -82,11 +82,11 @@ test.describe('Everest CLI install', async () => {
         'everest-operator operator has been installed',
       ]);
 
-      await out.outContainsNormalizedMany([
+      await out.outErrContainsNormalizedMany([
         'percona-xtradb-cluster-operator',
       ]);
 
-      await out.outNotContains([
+      await out.outErrNotContains([
         'percona-server-mongodb-operator',
         'percona-postgresql-operator',
       ]);
