@@ -76,7 +76,7 @@ test.describe('Everest CLI install', async () => {
       );
 
       await out.assertSuccess();
-      console.log(out.stdout);
+      
       await out.outErrContainsNormalizedMany([
         'percona-xtradb-cluster-operator operator has been installed',
         'everest-operator operator has been installed',
@@ -97,7 +97,7 @@ test.describe('Everest CLI install', async () => {
       );
 
       await out.assertSuccess();
-      console.log(out.stdout);
+      
       await out.outErrContainsNormalizedMany([
         'percona-server-mongodb-operator operator has been installed',
         'everest-operator operator has been installed',
@@ -118,7 +118,7 @@ test.describe('Everest CLI install', async () => {
       );
 
       await out.assertSuccess();
-      console.log(out.stdout);
+      
       await out.outErrContainsNormalizedMany([
         'percona-postgresql-operator operator has been installed',
         'everest-operator operator has been installed',
